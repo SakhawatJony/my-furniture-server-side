@@ -12,50 +12,50 @@ app.use(express.json())
 
 
 
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xwxsr.mongodb.net/?retryWrites=true&w=majority`;
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.h0m7hgr.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-// async function run(){
-//     try{
-//         await client.connect();
-//         const inventoryCollection = client.db('biycleInventory').collection('inventory')
-//         const stockCollection = client.db('biycleInventory').collection('stock');
+async function run(){
+    try{
+        await client.connect();
+        const furnitureCollection = client.db('furnitureInventory').collection('furniture')
+        const stockCollection = client.db('furnitureInventory').collection('stock');
 
-//         app.get('/inventory', async(req,res) =>{
-//             const query ={};
-//             const cursor = inventoryCollection.find(query);
-//             const inventorys = await cursor.toArray();
+        app.get('/furniture', async(req,res) =>{
+            const query ={};
+            const cursor = furnitureCollection.find(query);
+            const furnitures = await cursor.toArray();
 
-//             res.send(inventorys);
+            res.send(furnitures);
 
-//         })
+        })
 
-//         app.get('/inventory/:id', async(req, res) =>{
-//             const id = req.params.id;
-//             const query={_id: ObjectId(id)};
-//             const inventorys = await inventoryCollection.findOne(query);
-//             res.send(inventorys);
-//         });
+        app.get('/furniture/:id', async(req, res) =>{
+            const id = req.params.id;
+            const query={_id: ObjectId(id)};
+            const furnitures = await furnitureCollection.findOne(query);
+            res.send(furnitures);
+        });
 //          // POST
 //          app.post('/inventory', async(req, res) =>{
 //             const newService = req.body;
 //             const result = await inventoryCollection.insertOne(newService);
 //             res.send(result);
 //         });
-//          // Put
-//          app.put('/inventory/:serviceId', async(req, res) =>{
-//             const query={_id: ObjectId(req.params.serviceId)};
-//             const count = req.body.quantity 
-//             const options = { upsert: true }
-//             const updatedProduct = {
-//                 $set: {
-//                     quantity: count
-//                 }
-//             }
-//             const result = await inventoryCollection.updateOne(query,updatedProduct , options)
-//             res.send(result)
+         // Put
+         app.put('/furniture/:serviceId', async(req, res) =>{
+            const query={_id: ObjectId(req.params.serviceId)};
+            const count = req.body.quantity 
+            const options = { upsert: true }
+            const updatedProduct = {
+                $set: {
+                    quantity: count
+                }
+            }
+            const result = await furnitureCollection.updateOne(query,updatedProduct , options)
+            res.send(result)
            
-//         });
+        });
         
 //         // DELETE
 //         app.delete('/inventory/:serviceId', async(req, res) =>{
@@ -65,12 +65,12 @@ app.use(express.json())
 //             res.send(result);
 //         });
 
-//         // stock item
-//     app.post('/stock', async (req, res) => {
-//         const stock = req.body;
-//         const result = await stockCollection.insertOne(stock);
-//         res.send(result);
-//       })
+        // stock item
+    app.post('/stock', async (req, res) => {
+        const stock = req.body;
+        const result = await stockCollection.insertOne(stock);
+        res.send(result);
+      })
 //       app.get('/stock', async(req,res) =>{
 //         const query ={};
 //         const cursor = stockCollection.find(query);
@@ -106,10 +106,10 @@ app.use(express.json())
   
         
 
-//     }
-//     finally{}
-// }
-// run().catch(console.dir);
+    }
+    finally{}
+}
+run().catch(console.dir);
 
 
 
