@@ -36,12 +36,12 @@ async function run(){
             const furnitures = await furnitureCollection.findOne(query);
             res.send(furnitures);
         });
-//          // POST
-//          app.post('/inventory', async(req, res) =>{
-//             const newService = req.body;
-//             const result = await inventoryCollection.insertOne(newService);
-//             res.send(result);
-//         });
+         // POST
+         app.post('/furniture', async(req, res) =>{
+            const newService = req.body;
+            const result = await furnitureCollection.insertOne(newService);
+            res.send(result);
+        });
          // Put
          app.put('/furniture/:serviceId', async(req, res) =>{
             const query={_id: ObjectId(req.params.serviceId)};
@@ -57,13 +57,13 @@ async function run(){
            
         });
         
-//         // DELETE
-//         app.delete('/inventory/:serviceId', async(req, res) =>{
-//             let id = req.params.serviceId;
-//             const query = {_id: ObjectId(id)};
-//             const result = await inventoryCollection.deleteOne(query);
-//             res.send(result);
-//         });
+        // DELETE
+        app.delete('/furniture/:serviceId', async(req, res) =>{
+            let id = req.params.serviceId;
+            const query = {_id: ObjectId(id)};
+            const result = await furnitureCollection.deleteOne(query);
+            res.send(result);
+        });
 
         // stock item
     app.post('/stock', async (req, res) => {
@@ -71,38 +71,38 @@ async function run(){
         const result = await stockCollection.insertOne(stock);
         res.send(result);
       })
-//       app.get('/stock', async(req,res) =>{
-//         const query ={};
-//         const cursor = stockCollection.find(query);
-//         const stock = await cursor.toArray();
+      app.get('/stock', async(req,res) =>{
+        const query ={};
+        const cursor = stockCollection.find(query);
+        const stock = await cursor.toArray();
 
-//         res.send(stock);
+        res.send(stock);
 
-//     })
+    })
        
-//       app.get('/stock', async (req, res) => {
-//         const email = req.query.email;
-//         const query = { email: email };
-//         const cursor = stockCollection.find(query);
-//         const item = await cursor.toArray();
-//         res.send(item);
-//       })
-//       app.get('/stock', async(req,res) =>{
-//         const query ={};
-//         const cursor = stockCollection.find(query);
-//         const stock = await cursor.toArray();
+      app.get('/stock', async (req, res) => {
+        const email = req.query.email;
+        const query = { email: email };
+        const cursor = stockCollection.find(query);
+        const item = await cursor.toArray();
+        res.send(item);
+      })
+      app.get('/stock', async(req,res) =>{
+        const query ={};
+        const cursor = stockCollection.find(query);
+        const stock = await cursor.toArray();
 
-//         res.send(stock);
+        res.send(stock);
 
-//     })
+    })
  
-//   // delete stock
-//       app.delete('/stock/:id', async (req, res) => {
-//         const id = req.params.id;
-//         const query = { _id: ObjectId(id) }
-//         const result = await stockCollection.deleteOne(query);
-//         res.send(result);
-//       })
+  // delete stock
+      app.delete('/stock/:id', async (req, res) => {
+        const id = req.params.id;
+        const query = { _id: ObjectId(id) }
+        const result = await stockCollection.deleteOne(query);
+        res.send(result);
+      })
   
         
 
